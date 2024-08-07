@@ -15,15 +15,5 @@ exports.createAuther = (req, res) => {
     .catch((err) => res.status(400).send(err));
 
     
-  // console.log(req.body);
-  // console.log(firstName);
-  // const newAuthor = new AutherModle({ firstName });
-  // newAuthor
-  //   .save()
-  //   .then((doc) => {
-  //     res.json(doc);
-  //   })
-  //   .catch((err) => {
-  //     res.json(err);
-  //   });
+
 };
