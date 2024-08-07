@@ -133,7 +133,7 @@ exports.createAuther = (req, res) => {
     })
     .catch((err) => res.status(400).send(err));
 
-    
+    console.log("ahmed")
   // console.log(req.body);
   // console.log(firstName);
   // const newAuthor = new AutherModle({ firstName });
