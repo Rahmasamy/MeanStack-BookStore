@@ -4,8 +4,8 @@ const express = require("express");
 dotenv.config({ path: "config.env" });
 const app = express();
 
-app.get("/api/auther", (req, res) => {
-  res.send({ auther: ["John Doe", "Jane Doe", "Jim Doe"] });
+app.get("/", (req, res) => {
+  res.send("hello world");
 });
 
 const PORT = process.env.PORT;
