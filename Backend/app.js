@@ -5,8 +5,14 @@ const morgan = require("morgan");
 dotenv.config({ path: "config.env" });
 const dbConnection = require("./config/database");
 const autherRoute = require("./Router/autherRoute");
-const bookRoute = require("./Router/bookRoute");
-const cors = require("cors");
+
+const bookRoute=require('./Router/bookRoute');
+const categoryRoutes = require('./Router/categoryRoute');
+
+const cors=require('cors');
+
+
+
 // connect with db
 dbConnection();
 
@@ -27,7 +33,8 @@ if (process.env.MODE_ENV === "development") {
 
 app.use("/api/bookstore", autherRoute);
 
-app.use("/api/bookstore", bookRoute);
+app.use("/api/bookstore",bookRoute);
+app.use("/api/bookstore",categoryRoute);
 
 
 
