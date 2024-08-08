@@ -13,5 +13,6 @@ exports.createAuther = (req, res) => {
       res.status(201).json({ data: auther });
     })
     .catch((err) => res.status(400).send(err));
+}
 
 
