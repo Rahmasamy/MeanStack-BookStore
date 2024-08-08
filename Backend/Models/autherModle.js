@@ -18,8 +18,4 @@ const autherSchema = new mongoose.Schema(
 
 const AutherModle = mongoose.model("Auther", autherSchema);
 
-<<<<<<< HEAD
 module.exports = AutherModle;
-=======
-module.exports = AutherModle;
->>>>>>> 98fca74 (crud-book)
