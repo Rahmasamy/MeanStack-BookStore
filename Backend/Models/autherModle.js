@@ -18,4 +18,7 @@ const autherSchema = new mongoose.Schema(
 
 const AutherModle = mongoose.model("Auther", autherSchema);
 
+
+
+
 module.exports = AutherModle;
