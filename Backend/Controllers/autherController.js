@@ -14,6 +14,7 @@ exports.createAuther = (req, res) => {
     })
     .catch((err) => res.status(400).send(err));
 
+<<<<<<< HEAD
     console.log("ahmed")
   // console.log(req.body);
   // console.log(firstName);
@@ -27,3 +28,8 @@ exports.createAuther = (req, res) => {
   //     res.json(err);
   //   });
 };
+=======
+
+
+};
+>>>>>>> 98fca74 (crud-book)
