@@ -1,11 +1,12 @@
-// const CategoryModel = require("../models/categoryModel");
+// const categoryModle = require("../models/categoryModel");
 
 const slugify = require("slugify");
 const categoryModle = require("../Models/categoryModle");
 
 // Get all categories
 exports.getCategories = (req, res) => {
-  CategoryModel.find()
+  categoryModle
+    .find()
     .then((categories) => {
       res.status(200).json({ data: categories });
     })
@@ -16,7 +17,8 @@ exports.getCategories = (req, res) => {
 exports.createCategory = (req, res) => {
   const name = req.body.name;
 
-  CategoryModel.create({ name: name, slug: slugify(name) })
+  categoryModle
+    .create({ name: name, slug: slugify(name) })
     .then((category) => {
       res.status(201).json({ data: category });
     })
@@ -25,7 +27,8 @@ exports.createCategory = (req, res) => {
 
 // Get a specific category by ID
 exports.getCategoryById = (req, res) => {
-  CategoryModel.findById(req.params.id)
+  categoryModle
+    .findById(req.params.id)
     .then((category) => {
       if (!category)
         return res.status(404).json({ message: "Category not found" });
@@ -39,11 +42,8 @@ exports.updateCategory = (req, res) => {
   const name = req.body.name;
   const slug = slugify(name);
 
-  CategoryModel.findByIdAndUpdate(
-    req.params.id,
-    { name: name, slug: slug },
-    { new: true }
-  )
+  categoryModle
+    .findByIdAndUpdate(req.params.id, { name: name, slug: slug }, { new: true })
     .then((category) => {
       if (!category)
         return res.status(404).json({ message: "Category not found" });
@@ -54,7 +54,8 @@ exports.updateCategory = (req, res) => {
 
 // Delete a category by ID
 exports.deleteCategory = (req, res) => {
-  CategoryModel.findByIdAndDelete(req.params.id)
+  categoryModle
+    .findByIdAndDelete(req.params.id)
     .then((category) => {
       if (!category)
         return res.status(404).json({ message: "Category not found" });
