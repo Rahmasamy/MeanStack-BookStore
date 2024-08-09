@@ -10,10 +10,8 @@ const bookRoute = require("./Router/bookRoute");
 const categoryRoutes = require("./Router/categoryRoute");
 
 const cors = require("cors");
-
 const ApiError = require("./Utils/apiError");
 const globalErrors = require("./MiddleWare/errorMiddleware");
-//(handel global error and make user model and insert in db)
 const { createUser } = require("./Controllers/userController");
 
 // connect with db
@@ -39,13 +37,11 @@ app.use("/api/bookstore", bookRoute);
 app.use("/api/bookstore", categoryRoutes);
 app.use("/api/bookstore", createUser);
 
-
 // app.all("*", (req, res, next) => {
 //   next(new ApiError(`Can't find ths route : ${req.originalUrl}`, 400));
 // });
 
 app.use(globalErrors);
-//(handel global error and make user model and insert in db)
 
 // app.all('*',(req,res,next) => {
 //   return res.status(404).json({status:HttpStatus.ERROR,data:{course:"not valid url"}})
