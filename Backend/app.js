@@ -10,6 +10,7 @@ const bookRoute = require("./Router/bookRoute");
 const categoryRoutes = require("./Router/categoryRoute");
 
 const cors = require("cors");
+const { createUser } = require("./Controllers/userController");
 
 // connect with db
 dbConnection();
@@ -33,6 +34,7 @@ app.use("/api/bookstore", autherRoute);
 
 app.use("/api/bookstore", bookRoute);
 app.use("/api/bookstore", categoryRoutes);
+app.use("/api/bookstore", createUser);
 
 // app.all('*',(req,res,next) => {
 //   return res.status(404).json({status:HttpStatus.ERROR,data:{course:"not valid url"}})
