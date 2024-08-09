@@ -1,4 +1,4 @@
-const autherModle = require("../Models/autherModle");
+const AutherModle = require("../Models/autherModle");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const ApiError = require("../Utils/apiError");

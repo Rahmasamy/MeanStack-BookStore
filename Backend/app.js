@@ -32,7 +32,6 @@ if (process.env.NODE_ENV === "development") {
 
 // Mount Routes
 app.use("/api/bookstore", autherRoute);
-
 app.use("/api/bookstore", bookRoute);
 app.use("/api/bookstore", categoryRoutes);
 app.use("/api/bookstore", createUser);

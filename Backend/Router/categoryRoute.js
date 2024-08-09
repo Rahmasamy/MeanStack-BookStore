@@ -5,15 +5,20 @@ const {
   createCategory,
   deleteCategory,
   updateCategory,
+  getCategoryById,
 } = require("../controllers/categoryController");
 
 router.route("/categories").get(getCategories).post(createCategory);
 
-router.put("/categories/:id", updateCategory).delete(deleteCategory);
+router
+  .route("/categories/:id")
+  .get(getCategoryById)
+  .put(updateCategory)
+  .delete(deleteCategory);
 
-// router.post("/categories", categoryController.createCategory);
-// router.get("/categories/:id", categoryController.getCategoryById);
-// router.put("/categories/:id", categoryController.updateCategory);
-// router.delete("/categories/:id", categoryController.deleteCategory);
+// router.post("/categories", createCategory);
+// router.get("/categories/:id", getCategoryById);
+// router.put("/categories/:id", updateCategory);
+// router.delete("/categories/:id", deleteCategory);
 
 module.exports = router;
