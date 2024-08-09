@@ -50,7 +50,7 @@ app.use(globalErrors);
 // listen for changes and reload routes
 const PORT = process.env.PORT;
 const server = app.listen(PORT, () => {
-  console.log("Server running on port 8080");
+  console.log("Server running on port 8080 ");
 });
 
 // listen for unhandledRejection to data base
