@@ -36,16 +36,7 @@ app.use("/api/bookstore", bookRoute);
 app.use("/api/bookstore", categoryRoutes);
 app.use("/api/bookstore", createUser);
 
-// app.all("*", (req, res, next) => {
-//   next(new ApiError(`Can't find ths route : ${req.originalUrl}`, 400));
-// });
-
 app.use(globalErrors);
-
-// app.all('*',(req,res,next) => {
-//   return res.status(404).json({status:HttpStatus.ERROR,data:{course:"not valid url"}})
-
-// })
 
 // listen for changes and reload routes
 const PORT = process.env.PORT;
