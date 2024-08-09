@@ -6,7 +6,7 @@ const {
   deleteCategory,
   updateCategory,
   getCategoryById,
-} = require("../controllers/categoryController");
+} = require("../Controllers/categoryController");
 
 router.route("/categories").get(getCategories).post(createCategory);
 
