@@ -10,6 +10,10 @@ const bookRoute = require("./Router/bookRoute");
 const categoryRoutes = require("./Router/categoryRoute");
 
 const cors = require("cors");
+
+const ApiError = require("./Utils/apiError");
+const globalErrors = require("./MiddleWare/errorMiddleware");
+//(handel global error and make user model and insert in db)
 const { createUser } = require("./Controllers/userController");
 
 // connect with db
@@ -23,18 +27,25 @@ app.use(cors());
 
 app.use(express.json());
 
-if (process.env.MODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
   console.log("Running");
 }
 
-// Routes
-
+// Mount Routes
 app.use("/api/bookstore", autherRoute);
 
 app.use("/api/bookstore", bookRoute);
 app.use("/api/bookstore", categoryRoutes);
 app.use("/api/bookstore", createUser);
+
+
+// app.all("*", (req, res, next) => {
+//   next(new ApiError(`Can't find ths route : ${req.originalUrl}`, 400));
+// });
+
+app.use(globalErrors);
+//(handel global error and make user model and insert in db)
 
 // app.all('*',(req,res,next) => {
 //   return res.status(404).json({status:HttpStatus.ERROR,data:{course:"not valid url"}})
@@ -43,6 +54,15 @@ app.use("/api/bookstore", createUser);
 
 // listen for changes and reload routes
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log("Server running on port 8080");
+});
+
+// listen for unhandledRejection to data base
+process.on("unhandledRejection", (err) => {
+  console.error(`Unhandled Rejection error: ${err.name} | ${err.message}`);
+  server.close(() => {
+    console.error(`Shutting down app ...`);
+    process.exit(1);
+  });
 });
