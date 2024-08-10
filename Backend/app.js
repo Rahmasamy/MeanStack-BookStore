@@ -12,7 +12,7 @@ const categoryRoutes = require("./Router/categoryRoute");
 const cors = require("cors");
 const ApiError = require("./Utils/apiError");
 const globalErrors = require("./MiddleWare/errorMiddleware");
-const { createUser } = require("./Controllers/userController");
+const { createUser, loginUser } = require("./Controllers/userController");
 
 // connect with db
 dbConnection();
@@ -35,6 +35,7 @@ app.use("/api/bookstore", autherRoute);
 app.use("/api/bookstore", bookRoute);
 app.use("/api/bookstore", categoryRoutes);
 app.use("/api/bookstore", createUser);
+app.use("/api/bookstore", loginUser);
 
 app.use(globalErrors);
 
