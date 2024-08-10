@@ -1,24 +1,3 @@
-// const asyncHandler = require("express-async-handler");
-// const slugify = require("slugify");
-// const ApiError = require("../Utils/apiError");
-// const UserModle = require("../Models/userModel");
-// const bcrypt = require("bcrypt");
-// const saltRounds = 10;
-// const myPlaintextPassword = "s0//P4$$w0rD";
-// const someOtherPlaintextPassword = "not_bacon";
-
-// exports.createUser = asyncHandler(async (req, res) => {
-//   const { name, email, password, image } = req.body;
-//   const user = await UserModle.create({
-//     name,
-//     email,
-//     password,
-//     image,
-//     slug: slugify(name),
-//   });
-//   res.status(200).json(user);
-// });
-
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const ApiError = require("../Utils/apiError");

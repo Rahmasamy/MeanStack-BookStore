@@ -2,6 +2,20 @@ const AutherModle = require("../Models/autherModle");
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const ApiError = require("../Utils/apiError");
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, path.join(__dirname, "..", "images"));
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage });
+
+exports.uploadMultipleImages = upload.array("imagePaths", 5);
 
 // @desc GET list of authers
 // @route GET /api/bookstore/auther
@@ -35,15 +49,29 @@ exports.getAuther = asyncHandler(async (req, res, next) => {
 // @route POST /api/bookstore/auther
 // @access private
 exports.createAuther = asyncHandler(async (req, res) => {
-  const firstName = req.body.firstName;
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({
+      status: "fail",
+      message: "No images uploaded",
+    });
+  }
+
+  const { firstName, lastName, DateOfBirth } = req.body;
+  const fullName = `${firstName} ${lastName}`;
+
+  const imagePaths = req.files.map((file) => file.path);
+
   const auther = await AutherModle.create({
-    firstName: firstName,
-    slug: slugify(firstName),
+    firstName,
+    lastName,
+    fullName: fullName,
+    imagePaths,
+    DateOfBirth,
+    slug: slugify(fullName),
   });
 
   res.status(201).json({ data: auther });
 });
-
 // @desc Update Specific authers by Id
 // @route PUT /api/bookstore/auther/:id
 // @access Private
