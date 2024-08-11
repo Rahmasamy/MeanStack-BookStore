@@ -1,44 +1,51 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcrypt");
 // 1 - create Schema
 const userSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "auther First Name must be required"],
-      minlength: [3, "to Short First Name, must be at least 3 characters"],
-      maxlength: [50, "First Name is too long, maximum 50 characters"],
+      trim: true,
+      required: [true, "Name must be required"],
     },
-    slug: { type: String },
-    email: {
-      type: String,
-      required: [true, "User Email Must Be Required"],
-      minlength: [5, "to Short First Name, must be at least 10 characters"],
-      maxlength: [50, "Email is too long, maximum 50 characters"],
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: [true, "User Email Must Be Required"],
-      minlength: [5, "to Short First Name, must be at least 5 characters"],
-      maxlength: [100, "Email is too long, maximum 50 characters"],
-    },
-    image: {
-      type: String,
-    },
-    role: { type: String, enum: ["user", "admin"], default: "user" },
     slug: {
       type: String,
       lowercase: true,
     },
+    email: {
+      type: String,
+      required: [true, "User Email Must Be Required"],
+      unique: true,
+      lowercase: true,
+    },
+    password: {
+      type: String,
+      required: [true, "User password Must Be Required"],
+      mainlength: [6, "Password must be at least"],
+    },
+    image: {
+      type: String,
+    },
+    role: {
+      type: String,
+      enum: ["user", "admin"],
+      default: "user",
+    },
+    isAdmin: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
 
-// 2 - Create model
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+  this.password = await bcrypt.hash(this.password, 12);
+  next();
+});
 
-const UserModle = mongoose.model("User", userSchema);
+const UserModel = mongoose.model("User", userSchema);
 
 // ========================================================================
 
-module.exports = UserModle;
+module.exports = UserModel;

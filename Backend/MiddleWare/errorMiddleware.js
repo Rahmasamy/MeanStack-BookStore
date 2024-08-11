@@ -1,19 +1,24 @@
 const globalErrors = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
   if (process.env.NODE_ENV === "development") {
     sendErrorForDev(err, res);
-    console.log("development");
-    console.log(process.env.NODE_ENV, 1);
+  } else if (process.env.NODE_ENV === "production") {
+    sendErrorForProduction(err, res);
   } else {
-    sendErrorForProdution(err, res);
-    console.log("production");
-    console.log(process.env.NODE_ENV, 2);
+    // Handle unexpected environments
+    sendErrorForProduction(err, res);
   }
 };
 
 const sendErrorForDev = (err, res) => {
-  return res.status(400).json({
+  // Respond with detailed error information
+  return res.status(err.statusCode).json({
     status: err.status,
     error: err,
     message: err.message,
@@ -21,10 +26,11 @@ const sendErrorForDev = (err, res) => {
   });
 };
 
-const sendErrorForProdution = (err, res) => {
-  return res.status(400).json({
+const sendErrorForProduction = (err, res) => {
+  // Respond with a generic error message
+  return res.status(err.statusCode).json({
     status: err.status,
-    message: err.message,
+    message: err.isOperational ? err.message : "Something went wrong!",
   });
 };
 

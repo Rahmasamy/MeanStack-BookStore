@@ -15,6 +15,10 @@ const ApiError = require("./Utils/apiError");
 const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
 
+const usersRoute = require("./Router/usersRoute");
+const userRoute = require("./Router/userRoute");
+
+
 dotenv.config({ path: "config.env" });
 // connect with db
 dbConnection();
@@ -31,7 +35,15 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Mount Routes
-app.use("/api/bookstore/authors", autherRoute);
+
+// app.use("/api/bookstore/authors", autherRoute);
+
+app.use("/api/bookstore", autherRoute);
+app.use("/api/bookstore", bookRoute);
+app.use("/api/bookstore", categoryRoutes);
+app.use("/api/bookstore", usersRoute);
+app.use("/api/auth", userRoute);
+
 
 app.use("/api/bookstore/books", bookRoute);
 app.use("/api/bookstore/categories", categoryRoutes);
@@ -45,7 +57,7 @@ const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// Handle unhandled promise rejections
+
 process.on("unhandledRejection", (err) => {
   console.error(`Unhandled Rejection error: ${err.name} | ${err.message}`);
   server.close(() => {
