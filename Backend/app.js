@@ -11,7 +11,7 @@ const autherRoute = require("./Router/autherRoute");
 const ApiError = require("./Utils/apiError");
 const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
-const { createUser } = require("./Controllers/userController");
+const { createUser, loginUser } = require("./Controllers/userController");
 
 dotenv.config({ path: "config.env" });
 // connect with db
@@ -35,6 +35,7 @@ app.use("/api/bookstore", autherRoute);
 app.use("/api/bookstore", bookRoute);
 app.use("/api/bookstore", categoryRoutes);
 app.use("/api/bookstore", createUser);
+app.use("/api/bookstore", loginUser);
 
 app.use(globalErrors);
 

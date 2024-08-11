@@ -1,6 +1,16 @@
-const express = require("express");
-const { createUser } = require("../Controllers/userController");
-const router = express.Router();
 
-router.route("/registr").post(createUser);
-// router.post("/login", loginUser);
+const { createUser, loginUser } = require("../Controllers/userController");
+
+const express = require("express");
+
+const router = express.Router();
+const { loginValidator } = require('../Utils/validators/loginValidator');
+const { registerValidator } = require('../Utils/validators/registerValidator');
+
+
+router.route("/registr").post(registerValidator, createUser);
+
+// Login route
+router.route("/login").post(loginValidator, loginUser);
+
+module.exports = router;
