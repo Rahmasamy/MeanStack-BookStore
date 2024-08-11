@@ -1,16 +1,24 @@
-
-const { createUser, loginUser } = require("../Controllers/userController");
-
 const express = require("express");
+const multer = require("multer");
+const path = require("path");
+const {
+  signupValidator,
+  loginValidator,
+} = require("../Utils/validators/userValidation");
+
+const { signup, login } = require("../Controllers/userController");
 
 const router = express.Router();
-const { loginValidator } = require('../Utils/validators/loginValidator');
-const { registerValidator } = require('../Utils/validators/registerValidator');
 
-
-router.route("/registr").post(registerValidator, createUser);
-
-// Login route
-router.route("/login").post(loginValidator, loginUser);
+router.route("/signup").post(signupValidator, signup);
+router.route("/login").post(loginValidator, login);
+// router
+//   .route("/changePassword/:id")
+//   .put(updateChangePassword, changeUserPassword);
+// router
+//   .route("/user/:id")
+//   .get(getUserValidator, getUser)
+//   .put(updateUserValidator, updateUser)
+//   .delete(deleteUserValidator, deleteUser);
 
 module.exports = router;
