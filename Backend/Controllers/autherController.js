@@ -5,18 +5,6 @@ const ApiError = require("../Utils/apiError");
 const multer = require("multer");
 const path = require("path");
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, path.join(__dirname, "..", "images"));
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, Date.now() + "-" + file.originalname);
-//   },
-// });
-// const upload = multer({ storage });
-
-// exports.uploadMultipleImages = upload.array("imagePaths", 5);
-
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -43,6 +31,7 @@ exports.getAuthers = asyncHandler(async (req, res) => {
 
   res.status(200).json({ results: auther.length, page, data: auther });
 });
+
 
 // @desc GET Specific authers by Id
 // @route GET /api/bookstore/auther/:id
