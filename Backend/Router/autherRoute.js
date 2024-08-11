@@ -1,9 +1,34 @@
 const express = require("express");
-const { getAuthers, createAuther } = require("../Controllers/autherController");
+const { validationResult } = require("express-validator");
+const {
+  getAuthers,
+  createAuther,
+  getAuther,
+  updateAuther,
+  deleteAuther,
+  uploadMultipleImages,
+} = require("../Controllers/autherController");
+const {
+  getAuthervalidator,
+  createAuthervalidator,
+  updataAuthervalidator,
+  deleteAuthervalidator,
+} = require("../Utils/validators/autherValidators");
+const multer = require("multer");
+const path = require("path");
 
 const router = express.Router();
 
-router.route("/author").get(getAuthers).post(createAuther);
+router.route("/").get(getAuthers).post(
+  // createAuthervalidator,
+  uploadMultipleImages,
+  createAuther
+);
+
+router
+  .route("/:id")
+  .get(getAuthervalidator, getAuther)
+  .put(updataAuthervalidator, updateAuther)
+  .delete(deleteAuthervalidator, deleteAuther);
 
 module.exports = router;
-

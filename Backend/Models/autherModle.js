@@ -5,11 +5,29 @@ const autherSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      required: [true, "auther First Name must be required"],
-      minlength: [3, "to Short First Name, must be at least 3 characters"],
-      maxlength: [50, "First Name is too long, maximum 50 characters"],
+      required: [true, "Auther first name is required"],
+      minlength: [3, "First name is too short, must be at least 3 characters"],
+      maxlength: [15, "First name is too long, maximum 15 characters"],
+      trim: true,
     },
-    slug: { type: String },
+    lastName: {
+      type: String,
+      required: [true, "Auther last name is required"],
+      minlength: [3, "Last name is too short, must be at least 3 characters"],
+      maxlength: [15, "Last name is too long, maximum 15 characters"],
+      lowercase: true,
+      trim: true, // Corrected typo
+    },
+    fullName: {
+      type: String,
+      lowercase: true,
+      trim: true, // Corrected typo
+    },
+    DateOfBirth: { type: Date },
+    imagePaths: [{ type: String }],
+    slug: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
@@ -18,8 +36,4 @@ const autherSchema = new mongoose.Schema(
 
 const AutherModle = mongoose.model("Auther", autherSchema);
 
-<<<<<<< HEAD
 module.exports = AutherModle;
-=======
-module.exports = AutherModle;
->>>>>>> 98fca74 (crud-book)
