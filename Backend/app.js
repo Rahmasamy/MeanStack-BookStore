@@ -1,19 +1,19 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
-
-dotenv.config({ path: "config.env" });
-const dbConnection = require("./config/database");
-const autherRoute = require("./Router/autherRoute");
+const path = require("path");
+const cors = require("cors");
 
 const bookRoute = require("./Router/bookRoute");
 const categoryRoutes = require("./Router/categoryRoute");
+const autherRoute = require("./Router/autherRoute");
 
-const cors = require("cors");
 const ApiError = require("./Utils/apiError");
+const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
 const { createUser, loginUser } = require("./Controllers/userController");
 
+dotenv.config({ path: "config.env" });
 // connect with db
 dbConnection();
 
@@ -22,8 +22,8 @@ dbConnection();
 // express app
 const app = express();
 app.use(cors());
-
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));

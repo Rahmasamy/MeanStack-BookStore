@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "User Email Must Be Required"],
       minlength: [5, "to Short First Name, must be at least 10 characters"],
       maxlength: [50, "Email is too long, maximum 50 characters"],
+      unique: true,
     },
     password: {
       type: String,
@@ -25,6 +26,11 @@ const userSchema = new mongoose.Schema(
     image: {
       type: String,
     },
+    role: { type: String, enum: ["user", "admin"], default: "user" },
+    slug: {
+      type: String,
+      lowercase: true,
+    },
   },
   { timestamps: true }
 );
@@ -33,9 +39,6 @@ const userSchema = new mongoose.Schema(
 
 const UserModle = mongoose.model("User", userSchema);
 
-
-
 // ========================================================================
-
 
 module.exports = UserModle;
