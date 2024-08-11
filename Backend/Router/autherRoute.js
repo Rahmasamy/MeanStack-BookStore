@@ -19,14 +19,14 @@ const path = require("path");
 
 const router = express.Router();
 
-router.route("/auther").get(getAuthers).post(
+router.route("/").get(getAuthers).post(
   // createAuthervalidator,
   uploadMultipleImages,
   createAuther
 );
 
 router
-  .route("/auther/:id")
+  .route("/:id")
   .get(getAuthervalidator, getAuther)
   .put(updataAuthervalidator, updateAuther)
   .delete(deleteAuthervalidator, deleteAuther);

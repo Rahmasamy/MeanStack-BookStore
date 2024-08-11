@@ -1,5 +1,7 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router(); // Create the router instance
+const categoryModel = require("../Models/categoryModle"); // Correct the typo
+
 const {
   getCategories,
   createCategory,
@@ -8,17 +10,16 @@ const {
   getCategoryById,
 } = require("../Controllers/categoryController");
 
-router.route("/categories").get(getCategories).post(createCategory);
+router.route("/").get(getCategories).post(createCategory);
 
 router
-  .route("/categories/:id")
+  .route("/:id")
   .get(getCategoryById)
   .put(updateCategory)
   .delete(deleteCategory);
 
-// router.post("/categories", createCategory);
-// router.get("/categories/:id", getCategoryById);
-// router.put("/categories/:id", updateCategory);
-// router.delete("/categories/:id", deleteCategory);
-
+// Export the router
 module.exports = router;
+
+
+

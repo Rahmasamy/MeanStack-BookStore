@@ -1,23 +1,23 @@
 const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
-const categoryModle = require("../Models/categoryModle");
+const categoryModel = require("../Models/categoryModle"); // Correct the typo
 
 // Get all categories
 exports.getCategories = asyncHandler(async (req, res) => {
-  const categories = await categoryModle.find();
+  const categories = await categoryModel.find();
   res.status(200).json({ data: categories });
 });
 
 // Create a new category
 exports.createCategory = asyncHandler(async (req, res) => {
   const name = req.body.name;
-  const category = await categoryModle.create({ name: name, slug: slugify(name) });
+  const category = await categoryModel.create({ name: name, slug: slugify(name) });
   res.status(201).json({ data: category });
 });
 
 // Get a specific category by ID
 exports.getCategoryById = asyncHandler(async (req, res) => {
-  const category = await categoryModle.findById(req.params.id);
+  const category = await categoryModel.findById(req.params.id);
 
   if (!category) {
     return res.status(404).json({ message: "Category not found" });
@@ -29,9 +29,15 @@ exports.getCategoryById = asyncHandler(async (req, res) => {
 // Update a category by ID
 exports.updateCategory = asyncHandler(async (req, res) => {
   const name = req.body.name;
+
+  // Check if name is provided before using slugify
+  if (!name) {
+    return res.status(400).json({ message: "Name is required" });
+  }
+
   const slug = slugify(name);
 
-  const category = await categoryModle.findByIdAndUpdate(
+  const category = await categoryModel.findByIdAndUpdate(
     req.params.id,
     { name: name, slug: slug },
     { new: true }
@@ -46,7 +52,7 @@ exports.updateCategory = asyncHandler(async (req, res) => {
 
 // Delete a category by ID
 exports.deleteCategory = asyncHandler(async (req, res) => {
-  const category = await categoryModle.findByIdAndDelete(req.params.id);
+  const category = await categoryModel.findByIdAndDelete(req.params.id);
 
   if (!category) {
     return res.status(404).json({ message: "Category not found" });
