@@ -24,8 +24,11 @@
 =======
     "mongoose": "^8.5.2",
     "mongosh": "^2.2.15",
+<<<<<<< HEAD
     "morgan": "^1.10.0",
 >>>>>>> fa9e1c4 (create data base Schema , finsh part of create auther)
+=======
+>>>>>>> e743df0 (solving conflict)
     "slugify": "^1.6.6"
   },
   "devDependencies": {

@@ -36,7 +36,12 @@ const { getAuthers, createAuther } = require("../Controllers/autherController");
 
 const router = express.Router();
 
+<<<<<<< HEAD
 router.route("/").get(getAuthers).post(createAuther);
 >>>>>>> fa9e1c4 (create data base Schema , finsh part of create auther)
+=======
+router.route("/author").get(getAuthers).post(createAuther);
+>>>>>>> e743df0 (solving conflict)
 
 module.exports = router;
+

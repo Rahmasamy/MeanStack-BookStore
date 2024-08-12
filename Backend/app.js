@@ -15,24 +15,27 @@ const ApiError = require("./Utils/apiError");
 const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
 
-dotenv.config({ path: "config.env" });
-
-
 
 dotenv.config({ path: "config.env" });
 
+const dbConnection = require("./config/database");
+const autherRoute = require("./Router/autherRoute");
+const bookRoute=require('./Router/bookRoute')
 
 
 // connect with db
 dbConnection();
 
+// const HttpStatus=require('./utils/httpStatusText');
+
 // express app
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-// Middleware setup
+
 
 app.use(express.json());
 
@@ -63,7 +66,13 @@ const server = app.listen(PORT, () => {
 
 // Routes
 
-app.use("/api/auther", autherRoute);
+
+app.use("/api/bookstore", autherRoute);
+app.use("/api/bookstore",bookRoute);
+// app.all('*',(req,res,next) => {
+//   return res.status(404).json({status:HttpStatus.ERROR,data:{course:"not valid url"}})
+
+// })
 
 // listen for changes and reload routes
 

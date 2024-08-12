@@ -133,6 +133,7 @@ exports.createAuther = (req, res) => {
     })
     .catch((err) => res.status(400).send(err));
 
+<<<<<<< HEAD
     console.log("ahmed")
   // console.log(req.body);
   // console.log(firstName);
@@ -146,4 +147,12 @@ exports.createAuther = (req, res) => {
   //     res.json(err);
   //   });
 };
+<<<<<<< HEAD
 >>>>>>> fa9e1c4 (create data base Schema , finsh part of create auther)
+=======
+=======
+
+
+};
+>>>>>>> 98fca74 (crud-book)
+>>>>>>> e743df0 (solving conflict)
