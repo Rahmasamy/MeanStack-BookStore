@@ -23,6 +23,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "User password Must Be Required"],
       mainlength: [6, "Password must be at least"],
     },
+    PasswordChangeedAt: Date,
     image: {
       type: String,
     },

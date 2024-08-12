@@ -65,7 +65,7 @@ exports.updateChangePassword = [
     .withMessage("password must be at least 10 characters long")
     .isLength({ max: 15 })
     .withMessage("Name must be at most 15 characters long"),
-  check("role").notEmpty().withMessage("Role is required"),
+  check("role").optional().notEmpty().withMessage("Role is required"),
 
   validationMiddleware,
 ];

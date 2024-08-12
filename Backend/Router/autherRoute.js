@@ -14,6 +14,7 @@ const {
   updataAuthervalidator,
   deleteAuthervalidator,
 } = require("../Utils/validators/autherValidators");
+const userController = require("../Controllers/userController");
 const multer = require("multer");
 const path = require("path");
 
@@ -21,6 +22,8 @@ const router = express.Router();
 
 router.route("/").get(getAuthers).post(
   // createAuthervalidator,
+  userController.isAdmin,
+  userController.protect,
   uploadMultipleImages,
   createAuther
 );
@@ -28,7 +31,7 @@ router.route("/").get(getAuthers).post(
 router
   .route("/:id")
   .get(getAuthervalidator, getAuther)
-  .put(updataAuthervalidator, updateAuther)
-  .delete(deleteAuthervalidator, deleteAuther);
+  .put(userController.isAdmin, updataAuthervalidator, updateAuther)
+  .delete(userController.isAdmin, deleteAuthervalidator, deleteAuther);
 
 module.exports = router;

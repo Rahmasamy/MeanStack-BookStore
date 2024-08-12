@@ -38,8 +38,9 @@ app.use("/api/bookstore/books", bookRoute);
 app.use("/api/bookstore/categories", categoryRoutes);
 app.use("/api/bookstore/user", userAuthenticateRoute);
 
-// sign-Up and log-In routes
+// sign-Up and log-In routes for users  
 app.use("/api/userAuth", signUpAndLoginRoute);
+//user authentication routes
 app.use("/api", usersRoute);
 
 // Global error handling middleware

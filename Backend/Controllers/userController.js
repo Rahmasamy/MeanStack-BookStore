@@ -34,7 +34,7 @@ exports.login = asyncHandler(async (req, res, next) => {
   const hashPassword = await bcrypt.compare(password, user.password);
 
   console.log(hashPassword);
-  
+
   if (!user || !hashPassword) {
     return next(new ApiError("Invalid email Or password wallahy", 401));
   }
@@ -44,4 +44,55 @@ exports.login = asyncHandler(async (req, res, next) => {
   });
 
   res.status(200).json({ data: user, token });
+});
+exports.protect = asyncHandler(async (req, res, next) => {
+  let token;
+  console.log(req.headers);
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+    console.log(token);
+  }
+  if (!token) {
+    return next(
+      new ApiError(
+        `you are not login to, please login to get access this part`,
+        401
+      )
+    );
+  }
+  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  console.log(decoded);
+  const currentUser = await UserModel.findOne({ _id: decoded.userId });
+  if (!currentUser) {
+    return next(new ApiError("the user is not logged in"));
+  }
+  if (currentUser.PasswordChangeedAt) {
+    const passwordChangedTimestamp = parseInt(
+      currentUser.PasswordChangeedAt.getTime() / 1000,
+      10
+    );
+    if (passwordChangedTimestamp > decoded.iat) {
+      return next(
+        new ApiError(" User recently changed password . Please login again.. ")
+      );
+    }
+  }
+
+  req.UserModel = currentUser;
+  next();
+});
+
+exports.isAdmin = asyncHandler(async (req, res, next) => {
+  const user = await UserModel.findOne({ isAdmin: true });
+  console.log(user);
+  if (!user) {
+    return next(new ApiError("you must be an admin to continue"));
+  }
+  if (user.isAdmin) {
+    console.log("user is Admin go  ");
+  }
+  next();
 });
