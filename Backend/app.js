@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
@@ -10,11 +8,11 @@ const bookRoute = require("./Router/bookRoute");
 const categoryRoutes = require("./Router/categoryRoute");
 const autherRoute = require("./Router/autherRoute");
 const userAuthenticateRoute = require("./Router/userAuthenticateRoute");
+const usersRoute = require("./Router/usersRoute");
+const signUpAndLoginRoute = require("./Router/signUpAndLoginRoute");
 
-const ApiError = require("./Utils/apiError");
 const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
-const { createUser, loginUser } = require("./Controllers/userController");
 
 dotenv.config({ path: "config.env" });
 // connect with db
@@ -35,11 +33,14 @@ if (process.env.NODE_ENV === "development") {
 
 // app.use("/api/bookstore/authors", autherRoute);
 
-app.use("/api/bookstore", autherRoute);
-app.use("/api/bookstore", bookRoute);
-app.use("/api/bookstore", categoryRoutes);
-app.use("/api/bookstore", createUser);
-app.use("/api/bookstore", loginUser);
+app.use("/api/bookstore/authors", autherRoute);
+app.use("/api/bookstore/books", bookRoute);
+app.use("/api/bookstore/categories", categoryRoutes);
+app.use("/api/bookstore/user", userAuthenticateRoute);
+
+// sign-Up and log-In routes
+app.use("/api/userAuth", signUpAndLoginRoute);
+app.use("/api", usersRoute);
 
 // Global error handling middleware
 app.use(globalErrors);
@@ -57,11 +58,3 @@ process.on("unhandledRejection", (err) => {
     process.exit(1);
   });
 });
-
-
-
-
-
-
-
-

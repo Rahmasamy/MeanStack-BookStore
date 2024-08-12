@@ -32,7 +32,9 @@ exports.login = asyncHandler(async (req, res, next) => {
   });
 
   const hashPassword = await bcrypt.compare(password, user.password);
+
   console.log(hashPassword);
+  
   if (!user || !hashPassword) {
     return next(new ApiError("Invalid email Or password wallahy", 401));
   }

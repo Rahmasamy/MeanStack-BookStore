@@ -23,9 +23,9 @@ const {
 const router = express.Router();
 
 router.route("/changePassword/:id").put(updateChangePassword,changeUserPassword);
-router.route("/user").get(getUsers).post(createUserValidator, createUser);
+router.route("/").get(getUsers).post(createUserValidator, createUser);
 router
-  .route("/user/:id")
+  .route("/:id")
   .get(getUserValidator, getUser)
   .put(updateUserValidator, updateUser)
   .delete(deleteUserValidator, deleteUser);
