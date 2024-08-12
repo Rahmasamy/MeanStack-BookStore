@@ -5,6 +5,7 @@ const autherSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
+<<<<<<< HEAD
       required: [true, "Auther first name is required"],
       minlength: [3, "First name is too short, must be at least 3 characters"],
       maxlength: [15, "First name is too long, maximum 15 characters"],
@@ -28,6 +29,13 @@ const autherSchema = new mongoose.Schema(
     slug: {
       type: String,
     },
+=======
+      required: [true, "auther First Name must be required"],
+      minlength: [3, "to Short First Name, must be at least 3 characters"],
+      maxlength: [50, "First Name is too long, maximum 50 characters"],
+    },
+    slug: { type: String },
+>>>>>>> fa9e1c4 (create data base Schema , finsh part of create auther)
   },
   { timestamps: true }
 );

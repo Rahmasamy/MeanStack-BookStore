@@ -1,4 +1,5 @@
 
+
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
@@ -7,7 +8,7 @@ const cors = require("cors");
 
 const bookRoute = require("./Router/bookRoute");
 const categoryRoutes = require("./Router/categoryRoute");
-const autherRoute = require("./Router/autherRoute");
+
 const userAuthenticateRoute = require("./Router/userAuthenticateRoute");
 
 const ApiError = require("./Utils/apiError");
@@ -15,6 +16,13 @@ const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
 
 dotenv.config({ path: "config.env" });
+
+
+
+dotenv.config({ path: "config.env" });
+
+
+
 // connect with db
 dbConnection();
 
@@ -24,9 +32,13 @@ app.use(cors());
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-if (process.env.NODE_ENV === "development") {
+// Middleware setup
+
+app.use(express.json());
+
+if (process.env.MODE_ENV === "development") {
   app.use(morgan("dev"));
-  console.log("Running");
+  console.log("Running"); 
 }
 
 
@@ -44,17 +56,17 @@ const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// Handle unhandled promise rejections
-process.on("unhandledRejection", (err) => {
-  console.error(`Unhandled Rejection error: ${err.name} | ${err.message}`);
-  server.close(() => {
-    console.error("Shutting down app...");
-    process.exit(1);
-  });
 
 
 
-});
+
+
+// Routes
+
+app.use("/api/auther", autherRoute);
+
+// listen for changes and reload routes
+
 
 
 
