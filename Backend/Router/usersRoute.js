@@ -22,7 +22,9 @@ const {
 
 const router = express.Router();
 
-router.route("/changePassword/:id").put(updateChangePassword,changeUserPassword);
+router
+  .route("/changePassword/:id")
+  .put(updateChangePassword, changeUserPassword);
 router.route("/").get(getUsers).post(createUserValidator, createUser);
 router
   .route("/:id")

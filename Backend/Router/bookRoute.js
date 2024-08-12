@@ -7,16 +7,16 @@ const {
   updateBook,
   DeleteBook,
 } = require("../Controllers/BookController");
-const { isAdmin } = require("../Controllers/userController");
+const { isAdmin, protect } = require("../Controllers/userController");
 
 const router = express.Router();
 
-router.route("/book").get(getAllBooks).post(isAdmin, createBook);
+router.route("/book").get(getAllBooks).post(isAdmin, protect,createBook);
 
 router
   .route("/book/:id")
   .get(getBookById)
-  .put(isAdmin, updateBook)
-  .delete(isAdmin, DeleteBook);
+  .put(isAdmin, protect, updateBook)
+  .delete(isAdmin, protect, DeleteBook);
 
 module.exports = router;

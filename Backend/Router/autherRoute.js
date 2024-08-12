@@ -31,7 +31,17 @@ router.route("/").get(getAuthers).post(
 router
   .route("/:id")
   .get(getAuthervalidator, getAuther)
-  .put(userController.isAdmin, updataAuthervalidator, updateAuther)
-  .delete(userController.isAdmin, deleteAuthervalidator, deleteAuther);
+  .put(
+    userController.isAdmin,
+    userController.protect,
+    updataAuthervalidator,
+    updateAuther
+  )
+  .delete(
+    userController.isAdmin,
+    userController.protect,
+    deleteAuthervalidator,
+    deleteAuther
+  );
 
 module.exports = router;
