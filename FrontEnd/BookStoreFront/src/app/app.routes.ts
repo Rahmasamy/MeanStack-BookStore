@@ -10,7 +10,8 @@ import { BooksComponent } from './components/books/books.component';
 import { CategoryComponent } from './components/category/category.component';
 import { AuthorComponent } from './components/author/author.component';
 import { AdminbooksComponent } from './adminbooks/adminbooks.component';
-
+import { UserCategoriesComponent } from './components/user-categories/user-categories.component';
+import { UserAuthorsComponent } from './components/user-authors/user-authors.component';
 
 export const routes: Routes = [
     { path: '', component: LandingBageComponent },  // Default route
@@ -25,7 +26,9 @@ export const routes: Routes = [
             ,{path:"Authors",component:AuthorComponent}
         ]
     },
-    { path :"books" ,component:BooksComponent}
+    { path :"books" ,component:BooksComponent},
+    { path: "user-categories", component: UserCategoriesComponent },
+    { path: "user-authors", component: UserAuthorsComponent } 
 ];
 
 

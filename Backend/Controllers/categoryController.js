@@ -3,10 +3,25 @@ const slugify = require("slugify");
 const categoryModel = require("../Models/categoryModle"); // Correct the typo
 
 // Get all categories
+
 exports.getCategories = asyncHandler(async (req, res) => {
-  const categories = await categoryModel.find();
-  res.status(200).json({ data: categories });
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+  const skip = (page - 1) * limit;
+
+  // Fetch categories with pagination
+  const categories = await categoryModel.find().skip(skip).limit(limit);
+
+  // Fetch total count of categories
+  const totalCategories = await categoryModel.countDocuments();
+
+  res.status(200).json({
+    count: categories.length,
+    total: totalCategories,
+    data: categories,
+  });
 });
+
 
 // Create a new category
 exports.createCategory = asyncHandler(async (req, res) => {

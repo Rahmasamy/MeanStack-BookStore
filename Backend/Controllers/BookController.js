@@ -1,17 +1,29 @@
 const BookModle = require("../Models/bookModle");
 
 // C R U D Operations
+
 exports.getAllBooks = async (req, res) => {
   try {
-    const books = await BookModle.find({});
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page - 1) * limit;
+
+    // Fetch books with pagination
+    const books = await BookModle.find({}).skip(skip).limit(limit);
+
+    // Fetch total count of books
+    const totalBooks = await BookModle.countDocuments({});
+
     return res.status(200).json({
       count: books.length,
+      total: totalBooks,
       data: books,
     });
   } catch (error) {
-    res.status(500).send({ "error message: ": err.message });
+    res.status(500).send({ "error message": error.message });
   }
 };
+
 // get book by id
 exports.getBookById = async (req, res) => {
   try {
