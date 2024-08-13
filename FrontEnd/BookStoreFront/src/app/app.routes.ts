@@ -14,10 +14,10 @@ import { AdminbooksComponent } from './adminbooks/adminbooks.component';
 
 export const routes: Routes = [
     { path: '', component: LandingBageComponent },  // Default route
-    { path: 'about', component: AboutComponent },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'admin', component: AdminComponent,
+    { path: 'about', component: AboutComponent },  // Admin + user 
+    { path: 'login', component: LoginComponent }, // Adminn + user 
+    { path: 'register', component: RegisterComponent }, // admin + user 
+    { path: 'admin', component: AdminComponent,             /// juset for admin 
         children: [
             {path:"",component:CategoryComponent},
             {path:"category",component:CategoryComponent}
@@ -25,7 +25,7 @@ export const routes: Routes = [
             ,{path:"Authors",component:AuthorComponent}
         ]
     },
-    { path :"books" ,component:BooksComponent}
+    { path :"books" ,component:BooksComponent} // user 
 ];
 
 
