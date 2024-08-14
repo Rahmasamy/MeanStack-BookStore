@@ -108,9 +108,12 @@ exports.changeUserPassword = asyncHandler(async (req, res, next) => {
   if (!user) {
     // res.status(404).json({ msg: `No auther found for this id ${id}` });
     return next(new ApiError(`No auther found for this id ${id}`), 404);
-  } else {
-    res.status(200).json({ data: user });
-  }
+
+  } 
+   res.status(200).json({ data: user });
+   next()
+  
+
 });
 
 // @desc DELETE Specific authers by Id

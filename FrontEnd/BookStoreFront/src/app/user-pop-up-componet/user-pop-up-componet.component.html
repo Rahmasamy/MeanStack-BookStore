@@ -1,0 +1,30 @@
+<div class="popup-container">
+    <button class ="btn btn-warning" style="color: aliceblue !important;" (click)="closeDialog()"> 
+        X
+    </button>
+    <form action=""  [formGroup]="categoryForm" (ngSubmit)="onFormSubmit()" class="categoryForm">
+        <mat-form-field>
+            <mat-label> User Name</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label> Email</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label> Password</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label> Role</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+          <div mat-dialog-actions class="action">
+           
+            <button mat-raised-button color="warning" class="btn btn-warning" type="submit">{{data ? 'Update': 'Save'}}</button>
+        </div>
+    </form>
+  
+     
+    
+</div>

@@ -11,7 +11,9 @@ const { isAdmin, protect } = require("../Controllers/userController");
 
 const router = express.Router();
 
-router.route("/book").get(getAllBooks).post(isAdmin, protect,createBook);
+
+router.route("/").get(getAllBooks).post(isAdmin, protect,createBook);
+
 
 router
   .route("/book/:id")

@@ -5,22 +5,51 @@
     height: 80vh;
     width: 100%;
     flex-direction: column;
+    color: white;
   }
   .register-container .register-form {
-      width: 30% !important;
+      width: 80% !important;
       display: flex !important;
       align-content: center !important;
       justify-content: center !important;
-      height: 500px;
       flex-direction: column;
   }
 
   .btn-submit {
-      width: 100% !important;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-  .btn-submit button {
-    width: 30%;
-  }
+    width: 45% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.submit-login {
+  width: 100%;
+}
+.submit-login {
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
+}
+.submit-login div{
+  width: 50%;
+}
+.submit-login div a ,
+.submit-login div button {
+  width: 100%;
+  height: 56px;
+}
+mat-card-content {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+mat-card {
+  width: 35%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
