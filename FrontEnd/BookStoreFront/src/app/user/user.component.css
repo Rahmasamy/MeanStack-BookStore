@@ -1,0 +1,30 @@
+
+.user-big-container {
+    width: 100%;
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.user-container {
+    width: 70%;
+}
+h1 {
+    font-size: 55px;
+    font-family: "Whisper", cursive;
+    font-weight: 500;
+   
+}
+.icon-plus {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.table {
+    margin-top: 20px;
+}
+a {
+    margin-left: 17px;
+}

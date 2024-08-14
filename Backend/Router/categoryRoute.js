@@ -9,17 +9,15 @@ const {
   updateCategory,
   getCategoryById,
 } = require("../Controllers/categoryController");
+const { isAdmin, protect } = require("../Controllers/userController");
 
-router.route("/").get(getCategories).post(createCategory);
+router.route("/").get(getCategories).post(isAdmin, protect,createCategory);
 
 router
   .route("/:id")
   .get(getCategoryById)
-  .put(updateCategory)
-  .delete(deleteCategory);
+  .put(isAdmin, protect,updateCategory)
+  .delete(isAdmin, protect,deleteCategory);
 
 // Export the router
 module.exports = router;
-
-
-

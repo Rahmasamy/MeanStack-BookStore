@@ -1,5 +1,4 @@
 const express = require("express");
-<<<<<<< HEAD
 const { validationResult } = require("express-validator");
 const {
   getAuthers,
@@ -15,6 +14,7 @@ const {
   updataAuthervalidator,
   deleteAuthervalidator,
 } = require("../Utils/validators/autherValidators");
+const userController = require("../Controllers/userController");
 const multer = require("multer");
 const path = require("path");
 
@@ -22,6 +22,8 @@ const router = express.Router();
 
 router.route("/").get(getAuthers).post(
   // createAuthervalidator,
+  userController.isAdmin,
+  userController.protect,
   uploadMultipleImages,
   createAuther
 );
@@ -29,19 +31,17 @@ router.route("/").get(getAuthers).post(
 router
   .route("/:id")
   .get(getAuthervalidator, getAuther)
-  .put(updataAuthervalidator, updateAuther)
-  .delete(deleteAuthervalidator, deleteAuther);
-=======
-const { getAuthers, createAuther } = require("../Controllers/autherController");
-
-const router = express.Router();
-
-<<<<<<< HEAD
-router.route("/").get(getAuthers).post(createAuther);
->>>>>>> fa9e1c4 (create data base Schema , finsh part of create auther)
-=======
-router.route("/author").get(getAuthers).post(createAuther);
->>>>>>> e743df0 (solving conflict)
+  .put(
+    userController.isAdmin,
+    userController.protect,
+    updataAuthervalidator,
+    updateAuther
+  )
+  .delete(
+    userController.isAdmin,
+    userController.protect,
+    deleteAuthervalidator,
+    deleteAuther
+  );
 
 module.exports = router;
-

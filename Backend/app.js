@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
@@ -8,48 +6,44 @@ const cors = require("cors");
 
 const bookRoute = require("./Router/bookRoute");
 const categoryRoutes = require("./Router/categoryRoute");
-
+const autherRoute = require("./Router/autherRoute");
 const userAuthenticateRoute = require("./Router/userAuthenticateRoute");
+const usersRoute = require("./Router/usersRoute");
+const signUpAndLoginRoute = require("./Router/signUpAndLoginRoute");
 
-const ApiError = require("./Utils/apiError");
 const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
 
-
 dotenv.config({ path: "config.env" });
-
-const dbConnection = require("./config/database");
-const autherRoute = require("./Router/autherRoute");
-const bookRoute=require('./Router/bookRoute')
-
-
 // connect with db
 dbConnection();
 
-// const HttpStatus=require('./utils/httpStatusText');
-
 // express app
 const app = express();
-
 app.use(cors());
 app.use(express.json());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
-
-
-app.use(express.json());
-
-if (process.env.MODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
-  console.log("Running"); 
+  console.log("Running");
 }
 
+// Mount Routes
+
+// app.use("/api/bookstore/authors", autherRoute);
 
 app.use("/api/bookstore/authors", autherRoute);
-
-app.use("/api/bookstore", bookRoute);
+app.use("/api/bookstore/books", bookRoute);
 app.use("/api/bookstore/categories", categoryRoutes);
 app.use("/api/bookstore/user", userAuthenticateRoute);
+
+// sign-Up and log-In routes for users  
+
+app.use("/api/userAuth", signUpAndLoginRoute);
+//user authentication routes
+// change password
+app.use("/api", usersRoute);
 
 // Global error handling middleware
 app.use(globalErrors);
@@ -59,28 +53,11 @@ const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-
-
-
-
-
-// Routes
-
-
-app.use("/api/bookstore", autherRoute);
-app.use("/api/bookstore",bookRoute);
-// app.all('*',(req,res,next) => {
-//   return res.status(404).json({status:HttpStatus.ERROR,data:{course:"not valid url"}})
-
-// })
-
-// listen for changes and reload routes
-
-
-
-
-
-
-
-
-
+// listen for unhandledRejection to data base
+process.on("unhandledRejection", (err) => {
+  console.error(`Unhandled Rejection error: ${err.name} | ${err.message}`);
+  server.close(() => {
+    console.error("Shutting down app...");
+    process.exit(1);
+  });
+});
