@@ -6,12 +6,14 @@ const {
   getBookById,
   updateBook,
   DeleteBook,
+  getBooksByCategoryId,
+  getBooksByAuthorId,
 } = require("../Controllers/BookController");
 const { isAdmin, protect } = require("../Controllers/userController");
 
 const router = express.Router();
 
-router.route("/book").get(getAllBooks).post(isAdmin, protect,createBook);
+router.route("/").get(getAllBooks).post(isAdmin, protect, createBook);
 
 router
   .route("/book/:id")
@@ -19,4 +21,8 @@ router
   .put(isAdmin, protect, updateBook)
   .delete(isAdmin, protect, DeleteBook);
 
+
+router.route("/category/:id").get(getBooksByCategoryId);
+
+router.route("/author/:id").get(getBooksByAuthorId);
 module.exports = router;

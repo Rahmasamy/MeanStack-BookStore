@@ -5,22 +5,32 @@
     height: 80vh;
     width: 100%;
     flex-direction: column;
+    color: white !important;
   }
   .register-container .register-form {
       width: 60% !important;
       display: flex !important;
       align-content: center !important;
       justify-content: center !important;
-      height: 500px;
+      height: 600px;
       flex-direction: column;
+      padding: 17px;
   }
 
   .btn-submit {
-      width: 100% !important;
+      width: 45% !important;
       display: flex;
       justify-content: center;
       align-items: center;
   }
   .btn-submit button {
-    width: 30%;
+    width: 100%;
+  }
+  .submit-login {
+    width: 100%;
+  }
+  .submit-login {
+    display: flex;
+    gap: 10px;
+    justify-content: space-evenly;
   }

@@ -1,0 +1,19 @@
+<div class="user-big-container">
+    <div class="category-container">
+        <h2> Authors </h2>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-3" *ngFor="let author of Authors">
+              <div class="card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRehqKzm1oG5n5c878Dg5Qx1ivO3M4PgOjIKCVJdB6nGzPjCVAAVf5MUDNmS8G9ShMsAA4&usqp=CAU" class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">{{author.firstName}} {{author.lastName}}</h5>
+                  <!--<p class="card-text">{{author.imagePaths}}</p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+

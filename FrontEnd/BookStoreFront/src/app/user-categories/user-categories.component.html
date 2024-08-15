@@ -1,0 +1,25 @@
+
+<div class="user-big-container">
+
+<div class="category-container">
+    <h3>Categories</h3>
+   
+  
+        <div class="container">
+          <div class="row" *ngFor="let categoryPair of categories ; let i = index; ">
+            <div class="col-sm-4" >
+              <div class="card">
+                <div class="card-body">
+                  <h6 class="card-text"> {{ categories[i].name }} </h6>
+                  <a class="btn btn-primary" [routerLink]="'/categoryDetails/' + categories[i]._id">show</a>
+
+                </div>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+  
+  
+  </div>
+</div>

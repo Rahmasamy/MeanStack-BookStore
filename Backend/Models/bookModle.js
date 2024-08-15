@@ -17,7 +17,21 @@ const BookSchema = new mongoose.Schema(
     },
     Category: { type : String ,required: [true, "Category must be required"]
 
-    }
+    },
+    Author_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Auther",
+      required: true,
+    },
+    Category_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
+      required: true,
+    },
+    rating : { type : String},
+    desc: { type:String},
+    reviews : { type: [String]},
+   
   },
   { timestamps: true }
 );

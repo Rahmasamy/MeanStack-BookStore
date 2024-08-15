@@ -23,6 +23,12 @@ const autherSchema = new mongoose.Schema(
       lowercase: true,
       trim: true, // Corrected typo
     },
+    Category_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "category",
+      required: true,
+    },
+
     DateOfBirth: { type: Date },
     imagePaths: [{ type: String }],
     slug: {

@@ -5,8 +5,8 @@
             <i class="fa-solid fa-book-open-reader"></i>
             <p>BookStore-Market</p>
           </div>
-       
-         
+
+
         </div>
         <div class="btn-buynow">
           <button class="btn btn-warning p-2">
@@ -17,32 +17,46 @@
       <nav class="navbar navbar-expand-lg bg-body-tertiary navbar-container2">
         <div class="container-fluid second-navbar">
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav" *ngIf="isLogin">
               <a class="nav-link active" aria-current="page" routerLink="">Home</a>
-              <a class="nav-link" routerLink="books">Books</a>
-              <a class="nav-link" routerLink="admin">Admin</a>
+
               <a class="nav-link" routerLink="about">About</a>
-              <a class="nav-link" routerLink="login">Login</a>
-              <a class="nav-link" routerLink="register">Register</a>
-              
+              <a class="nav-link" routerLink="admin"*ngIf="isAdmin">Admin</a>
+              <a class="nav-link" routerLink="Users"*ngIf="isAdmin">Users</a>
+              <a class="nav-link" routerLink="userCategories" *ngIf="!isAdmin">Categories</a>
+              <a class="nav-link" routerLink="userAuthors" *ngIf="!isAdmin">Authors</a>
+              <!-- <a class="nav-link" *ngIf="!isAdmin">Books</a>
+            -->
+
             </div>
           </div>
           <div class="navbar-brand" >
             <img src="https://writer.ancorathemes.com/splash/src/img/logo.svg" alt="img-not-found">
           </div>
           <div class="btn-purchase-theme">
+            <div class="navbar-nav" >
+              <a class="nav-link" routerLink="login" *ngIf="!isLogin">Login</a>
+              <a class="nav-link" routerLink="register" *ngIf="!isLogin">Register</a>
+            </div>
+            <div class="navbar-nav" >
+              <a class="nav-link"  (click)=" logout()" *ngIf="isLogin">Logout</a>
+
+            </div>
+
             <button class="btn btn-warning p-3">
               Purchase Theme
             </button>
-          
+
           </div>
-          
+
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
       </nav>
+
 </div>
+
 
 
 

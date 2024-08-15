@@ -5,6 +5,7 @@ import { CategoryPopUpComponent } from '../../category-pop-up/category-pop-up.co
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule, NgFor } from '@angular/common';
 import { CategoryserviceService } from '../../services/categoryService/categoryservice.service';
+import { CoreService } from '../../coreService/core-service.service';
 @Component({
   selector: 'app-category',
   standalone: true,
@@ -15,7 +16,7 @@ import { CategoryserviceService } from '../../services/categoryService/categorys
 export class CategoryComponent implements OnInit {
   categories: any[] = [];
 
-  constructor(private dialogRef: MatDialog, private categoryService: CategoryserviceService) {} // Inject the service
+  constructor(private dialogRef: MatDialog, private categoryService: CategoryserviceService,private _coreService:CoreService) {} // Inject the service
 
   ngOnInit(): void {
     this.getCategories();
@@ -24,7 +25,7 @@ export class CategoryComponent implements OnInit {
   getCategories(): void {
     this.categoryService.getCategories().subscribe(
       (response) => {
-      
+
         this.categories = response.data; // Access the 'data' key
       },
       (error) => {
@@ -33,8 +34,8 @@ export class CategoryComponent implements OnInit {
     );
   }
 
- 
- 
+
+
 
   openAddCategoryForm() {
     const dialogRef = this.dialogRef.open(CategoryPopUpComponent);
@@ -47,21 +48,11 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-
-  //   if (this.dataSource.paginator) {
-  //     this.dataSource.paginator.firstPage();
-  //   }
-  // }
 
   deleteCategory(id: number) {
     this.categoryService.deleteCategory(id).subscribe({
       next: (res) => {
-        // this._coreService.openSnackBar('Employee deleted!', 'done');
+        this._coreService.openSnackBar('Employee deleted!', 'done');
         this.getCategories();
       },
       error: console.log,

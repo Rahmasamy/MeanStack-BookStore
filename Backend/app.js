@@ -10,6 +10,8 @@ const autherRoute = require("./Router/autherRoute");
 const userAuthenticateRoute = require("./Router/userAuthenticateRoute");
 const usersRoute = require("./Router/usersRoute");
 const signUpAndLoginRoute = require("./Router/signUpAndLoginRoute");
+const usersRoute = require("./Router/usersRoute");
+const signUpAndLoginRoute = require("./Router/signUpAndLoginRoute");
 
 const dbConnection = require("./config/database");
 const globalErrors = require("./MiddleWare/errorMiddleware");
@@ -33,14 +35,19 @@ if (process.env.NODE_ENV === "development") {
 
 // app.use("/api/bookstore/authors", autherRoute);
 
+
+// app.use("/api/bookstore/authors", autherRoute);
+
 app.use("/api/bookstore/authors", autherRoute);
 app.use("/api/bookstore/books", bookRoute);
 app.use("/api/bookstore/categories", categoryRoutes);
 app.use("/api/bookstore/user", userAuthenticateRoute);
 
 // sign-Up and log-In routes for users  
+
 app.use("/api/userAuth", signUpAndLoginRoute);
 //user authentication routes
+// change password
 app.use("/api", usersRoute);
 
 // Global error handling middleware
@@ -51,6 +58,7 @@ const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
+// listen for unhandledRejection to data base
 // listen for unhandledRejection to data base
 process.on("unhandledRejection", (err) => {
   console.error(`Unhandled Rejection error: ${err.name} | ${err.message}`);

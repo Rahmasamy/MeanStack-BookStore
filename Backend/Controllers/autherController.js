@@ -48,6 +48,18 @@ exports.getAuther = asyncHandler(async (req, res, next) => {
   res.status(200).json({ data: auther });
 });
 
+exports.getAutherByCatgoryId = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+
+  const auther = await AutherModle.find({ Category_id: id });
+
+  if (!auther) {
+    // res.status(404).json({ msg: `No auther found for this id ${id}` });
+    return next(new ApiError(`No auther found for this id ${id}`), 404);
+  }
+  res.status(200).json({ data: auther });
+});
+
 // @desc POST create a new auther
 // @route POST /api/bookstore/auther
 // @access private

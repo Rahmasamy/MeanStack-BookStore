@@ -26,22 +26,52 @@ exports.getBookById = async (req, res) => {
   }
 };
 
+exports.getBooksByCategoryId= async (req, res) => {
+  try {
+    const { id } = req.params;
+    const book = await BookModle.find({ Category_id: id });;
+    return res.status(200).json({
+      count: book.length,
+      data: book,
+    });
+  } catch (error) {
+    res.status(500).send({ "error message: ": error.message });
+  }
+};
+
+
+exports.getBooksByAuthorId= async (req, res) => {
+  try {
+    const { id } = req.params;
+    const book = await BookModle.find({ Author_id: id });;
+    return res.status(200).json({
+      count: book.length,
+      data: book,
+    });
+  } catch (error) {
+    res.status(500).send({ "error message: ": error.message });
+  }
+};
+
 // add new book
 exports.createBook = async (req, res) => {
   try {
     if (
-      !req.body.Author ||
-      !req.body.Category ||
-      !req.body.img ||
+      !req.body.Author_id ,
+      !req.body.Category_id, 
+      !req.body.img ,
       !req.body.title
     ) {
       return res.status(400).send({ message: "All fields must be required " });
     }
+
     const newBook = {
       title: req.body.title,
       img: req.body.img,
-      Author: req.body.Author,
+      Author_id: req.body.Author_id,
+      Category_id: req.body.Category_id,
       Category: req.body.Category,
+      Author: req.body.Author,
     };
     await BookModle.create(newBook)
       .then((book) => {
@@ -57,10 +87,9 @@ exports.createBook = async (req, res) => {
 // update book
 exports.updateBook = async (req, res) => {
   try {
-    if (
-      !req.body.Author ||
-      !req.body.Category ||
-      !req.body.img ||
+    if ( !req.body.Author_id ,
+      !req.body.Category_id ,
+      !req.body.img, 
       !req.body.title
     ) {
       return res.status(400).send({ message: "All fields must be required " });
